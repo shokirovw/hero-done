@@ -1,25 +1,15 @@
 "use client";
 import React, { useState } from 'react';
-import { QrReader } from 'react-qr-reader';
+import { Scanner } from '@yudiel/react-qr-scanner';
 
 export default function Page () {
-  const [data, setData] = useState('No result');
-
+  let [someState, setSomeState] = useState("No Qr Code scanned")
   return (
     <>
-      <QrReader
-        onResult={(result, error) => {
-          if (!!result) {
-            setData(result?.text);
-          }
-
-          if (!!error) {
-            console.info(error);
-          }
-        }}
-        style={{ width: '100%' }}
-      />
-      <p>{data}</p>
+    <div className='w-96 h-96 bg-red-500 m-5'>
+      <Scanner onScan={(result) => { setSomeState(result[0].rawValue); console.log(result); }} />
+    </div>
+    <p>{someState}</p>
     </>
-  );
+  )
 }
