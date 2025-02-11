@@ -14,14 +14,14 @@ import {
 
 export default function Page () {
   let [someState, setSomeState] = useState("No Qr Code scanned");
-  let [selectedPerson, setSelectedPerson] = useState("Shohjahon");
+  let [selectedPerson, setSelectedPerson] = useState("");
 
-  const qrScanned = async (url: string) => {
+  const qrScanned = (url: string) => {
     if (url.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
       if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor") {
         let req = fetch(`/sendrequest?person=${selectedPerson}&url=${url}`, {
           method: "GET"
-        }).then(response => response.json()).then(json => { setSomeState(JSON.stringify(json)); })
+        }).then(response => response.json()).then(json => { setSomeState(`${selectedPerson}: ${JSON.stringify(json)}`);   })
 
 
       } else {
@@ -40,7 +40,7 @@ export default function Page () {
       <Scanner onScan={(result) => { qrScanned(result[0].rawValue); }} />
     </div>
     <div className='m-5'>
-    <Select defaultValue='Shohjahon' onValueChange={(v) => { setSelectedPerson(v); }}>
+    <Select onValueChange={(v) => { setSelectedPerson(v); console.log(v); }}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Oquvchi tanlang" />
       </SelectTrigger>
