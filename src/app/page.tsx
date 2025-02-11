@@ -10,10 +10,7 @@ import {
 } from "@/components/ui/select"
 
 
-const tokens = {
-  "Shohjahon": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMTYyLCJpYXQiOjE3Mzg5NTIyNTcsImV4cCI6MTc0NjcyODI1N30.YhpklnsoIQ5bFi83gUqNJxiY_5gngtk-NFOo0M9OEdM",
-  "Muhammadiyor": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDI0LCJpYXQiOjE3Mzg5NTAzNTMsImV4cCI6MTc0NjcyNjM1M30.JOnH1vVNkmBIScefl_JB1CIiBdn6tB13ee1Wh6Tj2ak"
-}
+
 
 export default function Page () {
   let [someState, setSomeState] = useState("No Qr Code scanned");
@@ -21,19 +18,10 @@ export default function Page () {
 
   const qrScanned = async (url: string) => {
     if (url.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
-      let headers = new Headers();
       if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor") {
-        headers.append("Accept", "application/json, text/plain, */*");
-        headers.append("Accept-Encoding", "gzip");
-        headers.append("authorization", `Bearer ${tokens[selectedPerson]}`);
-        headers.append("Connection", "Keep-Alive");
-        headers.append("Host", "api.newuzbekistan.hero.study");
-        headers.append("User-Agent", "okhttp/4.9.2");
-
-        let req = fetch(url, {
-          method: "GET",
-          headers: headers,
-        }).then((r) => { console.log(r); setSomeState("done"); })
+        let req = fetch(`/sendrequest?person=${selectedPerson}&url=${url}`, {
+          method: "GET"
+        }).then(response => response.json()).then(json => { setSomeState(JSON.stringify(json)); })
 
 
       } else {
