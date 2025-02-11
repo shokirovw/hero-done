@@ -40,15 +40,10 @@ export default function Page () {
       <Scanner onScan={(result) => { qrScanned(result[0].rawValue); }} />
     </div>
     <div className='m-5'>
-    <Select name="person" id="person">
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Oquvchi tanlang" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="Shohjahon">Shohjahon</SelectItem>
-        <SelectItem value="Muhammadiyor">Muhammadiyor</SelectItem>
-      </SelectContent>
-    </Select>
+    <select id="person">
+     <option value="Shohjahon">Shohjahon</option>
+     <option value="Muhammadiyor">Muhammadiyor</option>
+    </select>
     <p className='mt-3'>{someState}</p>
     </div>
   </>
