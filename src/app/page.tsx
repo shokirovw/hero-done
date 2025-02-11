@@ -40,7 +40,7 @@ export default function Page () {
       <Scanner onScan={(result) => { qrScanned(result[0].rawValue); }} />
     </div>
     <div className='m-5'>
-    <Select onValueChange={(v) => { setSelectedPerson(v); console.log(v); }}>
+    <Select value={selectedPerson} onValueChange={(v) => { setSelectedPerson(v); console.log(v); }}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Oquvchi tanlang" />
       </SelectTrigger>
