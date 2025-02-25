@@ -37,7 +37,7 @@ export default function Page () {
   return (
     <>
     <div className='w-96 h-96 bg-red-500 m-5'>
-      <Scanner components={{ audio: false, zoom: true }} constraints={{ width: { ideal: 4096 }, height: { ideal: 2160 } }} onScan={(result) => { qrScanned(result[0].rawValue); }} />
+      <Scanner components={{  }} constraints={{ aspectRatio: 1, width: { max: 4096 }, height: { ideal: 4096 } }} onScan={(result) => { qrScanned(result[0].rawValue); }} />
     </div>
     <div className='m-5'>
     <select id="person">
