@@ -37,7 +37,7 @@ export default function Page () {
   return (
     <>
     <div className='w-96 h-96 bg-red-500 m-5'>
-      <Scanner components={{ audio: false, zoom: true }} onScan={(result) => { qrScanned(result[0].rawValue); }} />
+      <Scanner components={{ audio: false, zoom: true }} constraints={{ width: { ideal: 4096 }, height: { ideal: 2160 } }} onScan={(result) => { qrScanned(result[0].rawValue); }} />
     </div>
     <div className='m-5'>
     <Select onValueChange={(v) => { setSelectedPerson(v); console.log(v); }}>
