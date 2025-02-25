@@ -14,9 +14,9 @@ import {
 
 export default function Page () {
   let [someState, setSomeState] = useState("No Qr Code scanned");
-  let [selectedPerson, setSelectedPerson] = useState("");
 
   const qrScanned = (url: string) => {
+    let selectedPerson = document.querySelector("#person").value;
     if (url.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
       if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor") {
         let req = fetch(`/sendrequest?person=${selectedPerson}&url=${url}`, {
@@ -40,15 +40,10 @@ export default function Page () {
       <Scanner components={{ audio: false, zoom: true }} constraints={{ width: { ideal: 4096 }, height: { ideal: 2160 } }} onScan={(result) => { qrScanned(result[0].rawValue); }} />
     </div>
     <div className='m-5'>
-    <Select onValueChange={(v) => { setSelectedPerson(v); console.log(v); }}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Oquvchi tanlang" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="Shohjahon">Shohjahon</SelectItem>
-        <SelectItem value="Muhammadiyor">Muhammadiyor</SelectItem>
-      </SelectContent>
-    </Select>
+    <select id="person">
+     <option value="Shohjahon">Shohjahon</option>
+     <option value="Muhammadiyor">Muhammadiyor</option>
+    </select>
     <p className='mt-3'>{someState}</p>
     </div>
   </>
