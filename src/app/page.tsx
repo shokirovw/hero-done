@@ -15,18 +15,35 @@ import {
 export default function Page () {
   let [someState, setSomeState] = useState("No QR Code scanned");
   const [selectedOption, setSelectedOption] = useState("Shohjahon");
+  const [details, setDetails] = useState("");
   const [scannerKey, setScannerKey] = useState(0);
 
   const qrScanned = (url: string) => {
     let selectedPerson = document.querySelector("#person").value;
 
     setSomeState("Loading...");
+    setDetails("");
 
     if (url.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
       if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor" || selectedPerson == "Umar") {
         let req = fetch(`/sendrequest?person=${selectedPerson}&url=${url}`, {
           method: "GET"
-        }).then(response => response.json()).then(json => { setSomeState(`${selectedPerson}: ${JSON.stringify(json)}`);   })
+        }).then(response => response.json()).then(json => { 
+
+          if (json.data) {
+            setSomeState(`Done. #SupportUkraine`);  
+          } else {
+            setSomeState(`Error.`);
+            if (json.error) {
+              setDetails(json.error);
+            } else {
+              setDetails("Unknown error occurred");
+            }
+          }
+
+           
+        
+        })
 
 
       } else {
@@ -43,6 +60,7 @@ export default function Page () {
     setSelectedOption(event.target.value);
     setScannerKey(prevKey => prevKey + 1); // Reset scanner
     setSomeState("No QR Code scanned");
+    setDetails("");
   };
 
   return (
@@ -57,6 +75,7 @@ export default function Page () {
      <option value="Umar">Umar</option>
     </select>
     <p className='mt-3'>{someState}</p>
+    <p className='mt-2 text-sm text-gray-500'>{details}</p>
     </div>
   </>
   )
