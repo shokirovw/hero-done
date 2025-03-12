@@ -69,7 +69,7 @@ export default function Page () {
 
   return (
     <>
-    <div className='w-96 h-96 bg-red-500 m-5'>
+    <div className='w-96 h-96 bg-gray-600 m-5'>
       <Scanner paused={pause} key={scannerKey} components={{ audio: false, finder: true, onOff: false, torch: false, zoom: true }} constraints={{ aspectRatio: 1, width: { max: 4096 }, height: { ideal: 4096 } }} onScan={(result) => { qrScanned(result[0].rawValue); console.log("Qr scanned function fired"); }} />
     </div>
     <div className='m-5'>
