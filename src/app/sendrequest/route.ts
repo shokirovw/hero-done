@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const person = searchParams.get('person');
     const url = searchParams.get('url');
 
-    if (person == "Shohjahon" || person == "Muhammadiyor") { 
+    if (person == "Shohjahon" || person == "Muhammadiyor" || person == "Umar") { 
         if (url?.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
             let headers = new Headers();
             headers.append("Accept", "application/json, text/plain, */*");
