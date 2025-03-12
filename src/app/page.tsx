@@ -17,12 +17,14 @@ export default function Page () {
   const [selectedOption, setSelectedOption] = useState("Shohjahon");
   const [details, setDetails] = useState("");
   const [scannerKey, setScannerKey] = useState(0);
+  const [pause, setPause] = useState(false);
 
   const qrScanned = (url: string) => {
     let selectedPerson = document.querySelector("#person").value;
 
     setSomeState("Loading...");
     setDetails("");
+    setPause(true);
 
     if (url.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
       if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor" || selectedPerson == "Umar") {
@@ -53,6 +55,8 @@ export default function Page () {
     } else {
       setSomeState("Qr code is not hero uzbekistan");
     }
+
+    setPause(false);
     
   }
 
@@ -66,7 +70,7 @@ export default function Page () {
   return (
     <>
     <div className='w-96 h-96 bg-red-500 m-5'>
-      <Scanner key={scannerKey} components={{ audio: false, finder: true, onOff: false, torch: false, zoom: true }} constraints={{ aspectRatio: 1, width: { max: 4096 }, height: { ideal: 4096 } }} onScan={(result) => { qrScanned(result[0].rawValue); console.log("Qr scanned function fired"); }} />
+      <Scanner paused={pause} key={scannerKey} components={{ audio: false, finder: true, onOff: false, torch: false, zoom: true }} constraints={{ aspectRatio: 1, width: { max: 4096 }, height: { ideal: 4096 } }} onScan={(result) => { qrScanned(result[0].rawValue); console.log("Qr scanned function fired"); }} />
     </div>
     <div className='m-5'>
     <select id="person" value={selectedOption} onChange={handleSelectChange}>
