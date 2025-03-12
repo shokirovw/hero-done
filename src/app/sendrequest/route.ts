@@ -2,7 +2,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 const tokens = {
     "Shohjahon": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMTYyLCJpYXQiOjE3Mzg5NTIyNTcsImV4cCI6MTc0NjcyODI1N30.YhpklnsoIQ5bFi83gUqNJxiY_5gngtk-NFOo0M9OEdM",
-    "Muhammadiyor": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDI0LCJpYXQiOjE3Mzg5NTAzNTMsImV4cCI6MTc0NjcyNjM1M30.JOnH1vVNkmBIScefl_JB1CIiBdn6tB13ee1Wh6Tj2ak"
+    "Muhammadiyor": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDI0LCJpYXQiOjE3Mzg5NTAzNTMsImV4cCI6MTc0NjcyNjM1M30.JOnH1vVNkmBIScefl_JB1CIiBdn6tB13ee1Wh6Tj2ak",
+    "Umar": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjQ2LCJpYXQiOjE3NDE3NzI0ODQsImV4cCI6MTc0OTU0ODQ4NH0.udQZIu6SETofNcR8bwE36hWQNL7AOT-bUi03Kb4fp94"
 }
 
 export async function GET(request: NextRequest) {

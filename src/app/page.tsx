@@ -18,7 +18,7 @@ export default function Page () {
   const qrScanned = (url: string) => {
     let selectedPerson = document.querySelector("#person").value;
     if (url.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
-      if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor") {
+      if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor" || selectedPerson == "Umar") {
         let req = fetch(`/sendrequest?person=${selectedPerson}&url=${url}`, {
           method: "GET"
         }).then(response => response.json()).then(json => { setSomeState(`${selectedPerson}: ${JSON.stringify(json)}`);   })
@@ -43,6 +43,7 @@ export default function Page () {
     <select id="person">
      <option value="Shohjahon">Shohjahon</option>
      <option value="Muhammadiyor">Muhammadiyor</option>
+     <option value="Umar">Umar</option>
     </select>
     <p className='mt-3'>{someState}</p>
     </div>
