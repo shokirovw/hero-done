@@ -9,6 +9,33 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			roboto: [
+				'var(--font-roboto)'
+			],
+			opensans: [
+				'var(--font-opensans)'
+			],
+			notosans: [
+				'var(--font-notosans)'
+			],
+			publicsans: [
+				'var(--font-publicsans)'
+			],
+			inter: [
+				'var(--font-inter)'
+			],
+			poppins: [
+				'var(--font-poppins)'
+			],
+			rwdevi: [
+				'var(--font-rwdevi)'
+			],
+		},
+		screens: {
+			'xss': '350px',
+			'xs': '400px'
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
