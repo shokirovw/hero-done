@@ -1,0 +1,29 @@
+{
+    "people": [
+        {
+            "name": "Ruslan",
+            "email": "r.aleksandrov@newuu.uz",
+            "password": "6l_!G5nXF3uU" 
+        },
+        {
+            "name": "Muhammadiyor",
+            "email": "m.shokirov@newuu.uz",
+            "password": "shokirov123"
+        },
+        {
+            "name": "Umar",
+            "email": "u.toshqulov@newuu.uz",
+            "password": "12345toshqulov"
+        },
+        { 
+            "name": "Doniyor",
+            "email": "d.soxibov@newuu.uz",
+            "password": "@77807780Dd"
+        },
+        {
+            "name": "Shohjahon",
+            "email": "s.karimberganov@newuu.uz",
+            "password": "Shoh_15291212505" 
+        }
+    ] 
+}

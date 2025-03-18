@@ -43,182 +43,78 @@ import { Scanner } from "@yudiel/react-qr-scanner";
 import { FaAngleDown } from "react-icons/fa6";
 import { AiOutlineLoading } from "react-icons/ai";
 import { IoIosCall } from "react-icons/io";
-  
+import { giveImgSrcFromAvatarId } from "./giveImgSrcFromAvatarId";
+import { useScanScreenState } from "./QrScanScreen";
+import { useUserData } from "@/lib/useUserData";
+import { Skeleton } from "@/components/ui/skeleton"
+
 
 export default function Page () {
-    let [scanScreen, setScanScreen] = useState<{open: boolean; person_id: null | number;}>({
-        open: false,
-        person_id: null,
-    });
+    const scanScreenState = useScanScreenState();
 
     const openScanFor = (person_id: number) => {
-        setScanScreen({ open: true, person_id: person_id });
+        scanScreenState.openScanScreenWithPersonID(person_id);
     }
 
-    let [friends, setFriends] = useState({
-        0: { name: "Pres. Aleksandrov", email: "r.aleksandrov@newuu.uz", username: "@aleksandrov", avatar_id: 0, person_id: 0 },
-        1: { name: "Shohjahon", email: "sh.karimberganov@newuu.uz", username: "@shohjahon", avatar_id: 1, person_id: 1 },
-    });
+    let { data } = useUserData();
 
     
 
     return (
             <div className="flex-grow px-4 sm:px-6 pt-6 flex flex-col">
-                {
-                    scanScreen.open && (<QrScanScreen scanScreen={scanScreen} setScanScreen={setScanScreen} friendsList={friends} />)
-                }
                 <p className="text-gray-800 text-[25px] font-rwdevi">Welcome aboard</p>
                 <div className="flex gap-x-2.5 text-gray-500/50 mt-2.5">
                     <TbPinFilled className="w-[18px] h-auto" />
                     <p className="text-sm font-semibold">Pinned</p>
                 </div>
                 <div className="flex-grow grid grid-cols-2 xss:grid-cols-3 min-[550px]:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 grid-rows-4 gap-3 mt-4">
-                    
-                    <div className="col-span-2 row-span-1 relative flex flex-col bg-gray-100 border border-gray-200 rounded-lg p-3">
-                        <div className="flex-grow">
-                            <div className="flex flex-row items-center gap-x-3">
-                                <Image src={giveImgSrcFromAvatarId(friends[0].avatar_id)} alt="" className="w-9 h-auto" width={200}  />
-                                <div>
-                                    <p className="font-rwdevi text-[15px] -mt-0.5 text-gray-700">{friends[0].name}</p>
-                                    <p className="text-xs text-gray-400">{friends[0].email}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <TbPinFilled className="absolute text-gray-300 top-2 right-2 w-3 h-auto" />
-                        <div className="w-full flex flex-row gap-x-3">
-                            <Link href={"tel:990000011"} className="flex-[3] text-xs inline-flex items-center font-medium border border-input shadow-sm h-8 rounded-md px-3 flex-row gap-x-2 bg-white hover:bg-white/80 justify-center">
-                                <p>Contact</p>
-                                <IoIosCall />
-                            </Link>
-                            <div onClick={() => { openScanFor(friends[0].person_id); }} className="flex-[1] cursor-pointer text-[11px] items-center inline-flex font-medium border border-input shadow-sm h-8 rounded-md px-3 flex-row gap-x-2 bg-black text-white justify-center">
-                                <p>Scan</p>
-                                <LiaQrcodeSolid />
-                            </div>
-                        </div>
-                    </div>
-
-                    {Object.values(friends).slice(1).map((person, i) => (
-                        <div key={i} className="col-span-1 row-span-1 flex flex-col justify-center items-center gap-y-2 bg-gray-100 rounded-lg">
-                            <div className="flex flex-row justify-center">
-                                <Image src={giveImgSrcFromAvatarId(person.avatar_id)} width={100} alt="" className="w-auto h-9" />
-                            </div>
-                            <p className="text-center text-xs font-inter font-semibold">{person.name}</p>
-                            <div onClick={() => { openScanFor(person.person_id); }} className="flex flex-row gap-x-1 cursor-pointer -mt-0.5 text-xs items-center justify-center hover:bg-gray-200 py-0.5 px-1.5 rounded-xl w-fit">
-                                <p>Scan</p>
-                                <IoIosArrowRoundForward className="w-4 h-auto" />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-    )
-}
-
-function giveImgSrcFromAvatarId (avatar_id: number) {
-    if (avatar_id == 0) {
-        return badge_img;
-    } else {
-        return badge2_img;
-    }
-}
-
-function QrScanScreen ({ scanScreen, setScanScreen, friendsList }) {
-    const [pause, setPause] = useState(false);
-    const [scanState, setScanState] = useState(0);
-    // 0 default
-    // 1 loading
-    // 2 result
-    
-    //   const qrScanned = (url: string) => {
-    //     let selectedPerson = document.querySelector("#person").value;
-    
-    //     setSomeState("Loading...");
-    //     setDetails("");
-    //     setPause(true);
-    
-    //     if (url.startsWith("https://api.newuzbekistan.hero.study/v1/q-r/code-active?url=")) {
-    //       if (selectedPerson == "Shohjahon" || selectedPerson == "Muhammadiyor" || selectedPerson == "Umar") {
-    //         let req = fetch(`/sendrequest?person=${selectedPerson}&url=${url}`, {
-    //           method: "GET"
-    //         }).then(response => response.json()).then(json => { 
-    
-    //           if (json.data) {
-    //             setSomeState(`Done. #SupportUkraine`);  
-    //           } else {
-    //             setSomeState(`Error.`);
-    //             if (json.error) {
-    //               setDetails(json.error);
-    //             } else {
-    //               setDetails("Unknown error occurred");
-    //             }
-    //           }
-    
-               
-            
-    //         })
-    
-    
-    //       } else {
-    //         setSomeState("No such person");
-    //       }
-          
-    //     } else {
-    //       setSomeState("Qr code is not hero uzbekistan");
-    //     }
-    
-    //     setPause(false);
-        
-    //   }
-
-    return (
-        <Dialog open={scanScreen.open} onOpenChange={(open) => { setScanScreen({ ...scanScreen, open: open }) }}>
-            <DialogContent className="rounded-none outline-none backdrop-blur-lg px-0 py-0 min-w-full h-[100vh] border-0 bg-transparent text-white shadow-none">
-                <div className="flex justify-center flex-col gap-y-7 items-center w-full h-full">
-                    <DialogTitle></DialogTitle>
-                    <Popover>
-                            <PopoverTrigger className="w-72 outline-none h-fit flex justify-between items-center px-1 pr-4 py-2 border border-gray-300/50 bg-gray-200/10 -mt-10 rounded-full">
-                                <div className="h-fit flex flex-row items-center gap-x-3">
-                                    <Image src={giveImgSrcFromAvatarId(friendsList[scanScreen.person_id].avatar_id)} alt="" className="h-9 w-auto" width={100} />
-                                    <div className="text-left">
-                                        <p className="font-rwdevi text-[15px] -mt-0.5 text-white">{friendsList[scanScreen.person_id].name}</p>
-                                        <p className="text-xs text-gray-400">{friendsList[scanScreen.person_id].username}</p>
+                    {data ? (
+                        <>
+                            <div className="col-span-2 row-span-1 relative flex flex-col bg-gray-100 border border-gray-200 rounded-lg p-3">
+                                <div className="flex-grow">
+                                    <div className="flex flex-row items-center gap-x-3">
+                                        <Image src={giveImgSrcFromAvatarId(data.me.avatar_id)} alt="" className="w-9 h-auto" width={200}  />
+                                        <div>
+                                            <p className="font-rwdevi text-[15px] -mt-0.5 text-gray-700">{data.me.name}</p>
+                                            <p className="text-xs text-gray-400">{data.me.email}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <FaAngleDown />
-                            </PopoverTrigger>
-                            <PopoverContent className="qrscreen-friends-select w-80 rounded-2xl p-3 px-2">
-                                <div className="flex flex-col divide-y w-full max-h-[200px] overflow-y-auto overflow-x-auto divide-gray-200/70">
-                                {Object.values(friendsList).map((friend, i) => {
-                                    if (friend.person_id != scanScreen.person_id) {
-                                        return (
-                                            <div key={i} className="flex cursor-pointer flex-row justify-between items-center py-1.5 hover:bg-gray-100 px-1.5 rounded-md">
-                                                <div className="flex flex-row items-center gap-x-2">
-                                                    <Image src={giveImgSrcFromAvatarId(friend.avatar_id)} alt="" className="h-8 w-auto" width={100} />
-                                                    <p className="font-inter text-sm">{friend.name}</p>
-                                                </div>
-                                            </div>
-                                        )
-                                    } else {
-                                        return (<div key={i} className="hidden"></div>)
-                                    }
-                                })}
+                                <TbPinFilled className="absolute text-gray-300 top-2 right-2 w-3 h-auto" />
+                                <div className="w-full flex flex-row gap-x-3">
+                                    <Link href={"tel:990000011"} className="flex-[3] text-xs inline-flex items-center font-medium border border-input shadow-sm h-8 rounded-md px-3 flex-row gap-x-2 bg-white hover:bg-white/80 justify-center">
+                                        <p>Contact</p>
+                                        <IoIosCall />
+                                    </Link>
+                                    <div onClick={() => { openScanFor(data.me.person_id); }} className="flex-[1] cursor-pointer text-[11px] items-center inline-flex font-medium border border-input shadow-sm h-8 rounded-md px-3 flex-row gap-x-2 bg-black text-white justify-center">
+                                        <p>Scan</p>
+                                        <LiaQrcodeSolid />
+                                    </div>
                                 </div>
-                            </PopoverContent>
-                    </Popover>
-                    <div className="container max-w-[400px] aspect-square bg-gray-400/30 rounded-2xl">
-                        {true ? (
-                            <Scanner classNames={{ container: "rounded-2xl", video: "rounded-2xl" }} paused={pause} key={scanScreen.person_id} components={{ audio: false, finder: true, onOff: false, torch: false, zoom: true }} onScan={(result) => { qrScanned(result[0].rawValue); console.log("Qr scanned function fired"); }} />
-                        ) : (
-                            <div className="w-full h-full flex items-center justify-center flex-col gap-y-6"> {/*bg-blue-500*/}
-                                <AiOutlineLoading className="w-12 h-auto animate-spin" />
-                                <p className="">Loading...</p>
                             </div>
-                        )}
-                    </div>
-                    <Button variant={"ghost"} onClick={() => { setScanScreen({ ...scanScreen, open: false }) }} size={"sm"} className="px-14 bg-white/5 border-2 border-gray-100/5 rounded-lg">Cancel</Button>
+
+                            {Object.values(data.friends).map((person, i) => (
+                                <div key={i} className="col-span-1 row-span-1 flex flex-col justify-center items-center gap-y-2 bg-gray-100 rounded-lg">
+                                    <div className="flex flex-row justify-center">
+                                        <Image src={giveImgSrcFromAvatarId(person.avatar_id)} width={100} alt="" className="w-auto h-9" />
+                                    </div>
+                                    <p className="text-center text-xs font-inter font-semibold">{person.name}</p>
+                                    <div onClick={() => { openScanFor(person.person_id); }} className="flex flex-row gap-x-1 cursor-pointer -mt-0.5 text-xs items-center justify-center hover:bg-gray-200 py-0.5 px-1.5 rounded-xl w-fit">
+                                        <p>Scan</p>
+                                        <IoIosArrowRoundForward className="w-4 h-auto" />
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                        <Skeleton className="col-span-2 row-span-1 rounded-lg p-3" />
+                        <Skeleton className="col-span-1 row-span-1 rounded-lg" />
+                        </>
+                    )}
+                    
                 </div>
-            </DialogContent>
-        </Dialog>
+            </div>
     )
 }
 

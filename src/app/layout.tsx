@@ -8,14 +8,21 @@ import localFont from 'next/font/local'
 import { MdHomeFilled } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { TbMilitaryRankFilled } from "react-icons/tb";
-
-import Image from "next/image"
 import bush_img from "../../public/bush.jpeg"
 import hero_img from "../../public/herodone.png"
 import { LiaQrcodeSolid } from "react-icons/lia";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import Link from "next/link";
+
+
+import { Button } from "@/components/ui/button";
+import { Scanner } from "@yudiel/react-qr-scanner";
+import { useEffect, useState } from "react";
+import { AiOutlineLoading } from "react-icons/ai";
+import { FaAngleDown } from "react-icons/fa";
+import { giveImgSrcFromAvatarId } from "./giveImgSrcFromAvatarId";
+import Image from 'next/image'
 
 import { usePathname } from 'next/navigation'
 
@@ -24,6 +31,9 @@ import {
     PopoverContent,
     PopoverTrigger,
   } from "@/components/ui/popover"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import ScanScreen, { useScanScreenState } from "./QrScanScreen";
+import { useUserData } from "@/lib/useUserData";
 
 const rwdevi = localFont({
   src: "./regular.ttf",
@@ -72,6 +82,7 @@ const opensans = Open_Sans({
   weight: ["300", "600", "400", "500", "700", "800"],
 });
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -88,12 +99,19 @@ export default function RootLayout({
     ${rwdevi.variable} 
   `
 
+  let userdata = useUserData();
+  let scanScreen = useScanScreenState();
+
+  useEffect(() => {
+    userdata.load();
+  }, []);
+
   const toggleSearchScreen = () => {
       alert("Opening search screen");
   }
 
-  const goToScan = (specific_id = "", type = "") => {
-      alert("Opening scan screen");
+  const goToScanMe = () => {
+      scanScreen.openScanScreenWithPersonID(userdata.data.me.person_id);
   }
 
   const pathname = usePathname()
@@ -103,12 +121,13 @@ export default function RootLayout({
       <body
         className={`${font_string} antialiased`}
       >
+        <ScanScreen />
         <div className="w-screen h-screen flex flex-col">
           <div className="header flex items-center justify-between h-14 py-2 px-2 sm:pl-4 sm:pr-6 pr-4">
                           <Link href={"/"} className="h-full w-fit"><Image src={hero_img} alt="" className="h-full w-auto" width={300} /></Link>
                           <div className="flex items-center gap-x-4 h-full">
-                              <div onClick={() => { goToScan() }} className="flex cursor-pointer items-center gap-x-2 px-4 py-2 h-fit rounded-full bg-black text-white">
-                                  <LiaQrcodeSolid />
+                              <div onClick={() => { if (userdata.data) { goToScanMe() } }} className="flex cursor-pointer items-center gap-x-2 px-4 py-2 h-fit rounded-full bg-black text-white">
+                                  {userdata.data ? (<LiaQrcodeSolid />) : (<AiOutlineLoading className="animate-spin" />)}
                               </div>
                               <Popover>
                                   <PopoverTrigger><IoMdNotificationsOutline className="w-5 h-auto" /></PopoverTrigger>
