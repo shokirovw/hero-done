@@ -6,6 +6,7 @@ const tokens = {
     "2": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTYzLCJpYXQiOjE3NDIyNzQ1MjIsImV4cCI6MTc1MDA1MDUyMn0.EYMhpDSrTrPKAc-InIR1-jylzY4Id75rTJ3J2PDT1E8", // Doniyor expire: 1750050522
     "3": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjQ2LCJpYXQiOjE3NDIyNzQ1NzUsImV4cCI6MTc1MDA1MDU3NX0.mGce2wNXiX9OhuXy7g06gcABNRDFPz6gs1eHYbblj2A", // Umar expire: 1750050575
     "4": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDI0LCJpYXQiOjE3NDIyNzQ2MTcsImV4cCI6MTc1MDA1MDYxN30.fThQpm1KI_rUS7bQE2JpG66oWil9dAkVj9iSGgLyA20", // Muhammadiyor expire: 1750050617
+    "5": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4ODcsImlhdCI6MTc0MjI4NDc5MSwiZXhwIjoxNzUwMDYwNzkxfQ._8byzDLNSwyc4iwxO1JsW0ck2QUqIocElmehD0sxbP8", // Farhod expire: 1750060791
 }
 
 export async function GET(request: NextRequest) {
