@@ -19,7 +19,7 @@ export const useUserData = create((set) => ({
           name: "Pres. Aleksandrov",
           email: "r.aleksandrov@newuu.uz", 
           username: "@aleksandrov", 
-          avatar_id: 0
+          avatar_id: 2
         },
         friends: {
           "1": { name: "Shohjahon", email: "sh.karimberganov@newuu.uz", username: "@shohjahon", avatar_id: 1, person_id: "1" },
